@@ -11,7 +11,7 @@ class Feed:
 
 
 # Service
-HOSTNAME = 'bsky.komagomama.com'
+HOSTNAME = 'bsky.example.com'
 SERVICE_DID = f'did:web:{HOSTNAME}'
 
 # Account

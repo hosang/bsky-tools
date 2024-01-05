@@ -1,5 +1,6 @@
 import dataclasses
 
+
 @dataclasses.dataclass
 class Feed:
     record_name: str
@@ -7,6 +8,7 @@ class Feed:
     description: str
     emoji: list[str]
     hashtags: list[str]
+
 
 # Service
 HOSTNAME = 'bsky.komagomama.com'

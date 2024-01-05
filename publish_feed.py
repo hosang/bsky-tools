@@ -7,9 +7,13 @@ import config
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Script for publishing and unpublishing feeds.')
+    parser = argparse.ArgumentParser(
+        description='Script for publishing and unpublishing feeds.')
     parser.add_argument('feed', help='Feed ID to publish/delete.')
-    parser.add_argument('--unpublish', action='store_true', help='Delete/unpublish feed.')
+    parser.add_argument(
+        '--unpublish',
+        action='store_true',
+        help='Delete/unpublish feed.')
     return parser.parse_args()
 
 
@@ -20,12 +24,13 @@ def main():
         if feed.record_name == args.feed:
             break
     else:
-        print(f'Could not find feed `{args.feed}` in: {", ".join(f.record_name for f in config.FEEDS)}')
+        print(
+            f'Could not find feed `{args.feed}` in: {", ".join(f.record_name for f in config.FEEDS)}')
         return
 
     avatar_blob = None
     # TODO: Add icon.
-    #if AVATAR_PATH:
+    # if AVATAR_PATH:
     #    with open(AVATAR_PATH, 'rb') as f:
     #        avatar_data = f.read()
     #        avatar_blob = client.com.atproto.repo.upload_blob(avatar_data).blob
@@ -42,18 +47,18 @@ def main():
         )
         print('Success:', response)
     else:
-        response = client.com.atproto.repo.put_record(models.ComAtprotoRepoPutRecord.Data(
-            repo=client.me.did,
-            collection=models.ids.AppBskyFeedGenerator,
-            rkey=feed.record_name,
-            record=models.AppBskyFeedGenerator.Main(
-                did=config.SERVICE_DID,
-                display_name=feed.display_name,
-                description=feed.description,
-                avatar=avatar_blob,
-                created_at=client.get_current_time_iso(),
-            )
-        ))
+        response = client.com.atproto.repo.put_record(
+            models.ComAtprotoRepoPutRecord.Data(
+                repo=client.me.did,
+                collection=models.ids.AppBskyFeedGenerator,
+                rkey=feed.record_name,
+                record=models.AppBskyFeedGenerator.Main(
+                    did=config.SERVICE_DID,
+                    display_name=feed.display_name,
+                    description=feed.description,
+                    avatar=avatar_blob,
+                    created_at=client.get_current_time_iso(),
+                )))
         print('response:', response)
         print()
         print('feed URI:', response.uri)
